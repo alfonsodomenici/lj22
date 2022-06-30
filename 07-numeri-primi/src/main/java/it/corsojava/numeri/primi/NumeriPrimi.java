@@ -33,7 +33,7 @@ end
 
  */
 package it.corsojava.numeri.primi;
-
+import it.corsojava.numeri.primi.utilita.Utilita;
 import it.corsojava.libreria.numeri.Numeri;
 import java.util.Scanner;
 
@@ -49,10 +49,38 @@ public class NumeriPrimi {
         int numero = 2;
         System.out.println("Elenco numeri primi maggiori di 1 fino a " + n);
         while (numero <= n) {
+            /* primo modo
+            if (isNumeroPrimo1(numero) == true) {
+                System.out.println(numero);
+            }
+            */
+            /* secondo modo
+            if (Utilita.isNumeroPrimo2(numero) == true) {
+                System.out.println(numero);
+            }
+            */
+            //terzo modo
             if (Numeri.isNumeroPrimo(numero) == true) {
                 System.out.println(numero);
             }
             numero++;
         }
     }
+    
+    public static boolean isNumeroPrimo1(int numero) {
+        if (numero < 2) {
+            return false;
+        }
+        boolean primo = true;
+        int divisore = 2;
+        while (divisore < numero && primo == true) {
+            if (numero % divisore == 0) {
+                primo = false;
+            }
+            divisore++;
+        }
+        return primo;
+    }
+    
+    
 }

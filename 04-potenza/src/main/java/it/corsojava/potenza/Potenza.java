@@ -13,8 +13,6 @@ start
     stampa potenza;
 end
 
-
-
 */
 package it.corsojava.potenza;
 
