@@ -6,8 +6,10 @@ package it.corsojava.oo;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +27,12 @@ public class UsaAnagrafica {
         Path path = Paths.get("/home/ospite/Documenti/persone.txt");
 
         try {
+            
+            String s = "messaggio da Java";
+            
+            Files.write(Paths.get("/home/ospite/Documenti/scrivi.txt"), s.getBytes(), 
+                    StandardOpenOption.CREATE);
+            
             List<String> righe = Files.readAllLines(path);
 
             stampa(righe);

@@ -20,11 +20,12 @@ public class App {
         System.out.println(a.toString());
 
         a.m1();
-        
+
         B b = new B("aaaaa", "bbbbb", "ccccc"); //creare una istanza di B
-        
+
         System.out.println(b.toString());
-        
+
         b.m1();
+
     }
 }

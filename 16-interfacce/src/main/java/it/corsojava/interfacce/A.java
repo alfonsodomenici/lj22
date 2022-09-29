@@ -8,7 +8,7 @@ package it.corsojava.interfacce;
  *
  * @author ospite
  */
-public class A {
+public class A  {
 
     private String p1;
     private String p2;
