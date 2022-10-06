@@ -16,6 +16,8 @@ public class FinestraPrincipale extends javax.swing.JFrame {
     public FinestraPrincipale() {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setBounds(200, 200, 500, 400);
+        loadData();
     }
 
     /**
@@ -27,6 +29,8 @@ public class FinestraPrincipale extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbAnagrafica = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuEsci = new javax.swing.JMenuItem();
@@ -34,6 +38,21 @@ public class FinestraPrincipale extends javax.swing.JFrame {
         mnuNuovoCliente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tbAnagrafica.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tbAnagrafica);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         mnuFile.setText("File");
 
@@ -60,17 +79,6 @@ public class FinestraPrincipale extends javax.swing.JFrame {
         jMenuBar1.add(mnuClienti);
 
         setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -121,9 +129,15 @@ public class FinestraPrincipale extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnuClienti;
     private javax.swing.JMenuItem mnuEsci;
     private javax.swing.JMenu mnuFile;
     private javax.swing.JMenuItem mnuNuovoCliente;
+    private javax.swing.JTable tbAnagrafica;
     // End of variables declaration//GEN-END:variables
+
+    private void loadData() {
+        tbAnagrafica.setModel(new TbAnagraficaModel());
+    }
 }

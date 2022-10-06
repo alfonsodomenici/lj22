@@ -6,8 +6,11 @@ package it.corsojava.clienti.jpa;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -27,6 +30,7 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
     public NuovoClienteDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txtNascita.setDateFormatString("dd/MM/yyyy");
     }
 
     /**
@@ -43,8 +47,8 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
         txtNome = new javax.swing.JTextField();
         txtCognome = new javax.swing.JTextField();
         lblNascita = new javax.swing.JLabel();
-        txtNascita = new javax.swing.JFormattedTextField();
         btnSalva = new javax.swing.JButton();
+        txtNascita = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuovo Cliente");
@@ -72,10 +76,10 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblNascita)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtNascita, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNascita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(lblNome)
                                 .addGap(0, 109, Short.MAX_VALUE))
@@ -84,8 +88,8 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCognome)
                             .addComponent(txtCognome, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSalva))
-                        .addGap(53, 53, 53))))
+                            .addComponent(btnSalva))))
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,32 +106,26 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
                 .addComponent(lblNascita)
                 .addGap(18, 18, 18)
                 .addComponent(txtNascita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(115, 115, 115)
                 .addComponent(btnSalva)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
+        
         Anagrafica tosave = new Anagrafica(txtNome.getText(), txtCognome.getText());
+        
+        tosave.setdNascita(DateFunctions.toLocalDate(txtNascita.getDate()));
 
-        LocalDate data = LocalDate.parse(txtNascita.getText(),
-                DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        AnagraficaStore.save(tosave);
 
-        tosave.setdNascita(data);
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
-        EntityManager em = emf.createEntityManager();
-
-        em.getTransaction().begin(); //inizia una transazione di modifiche
-
-        em.merge(tosave);
-
-        em.getTransaction().commit();
         JOptionPane.showMessageDialog(this, "Nuovo cliente salvato con successo!!");
+        
         this.setVisible(false);
+        
         this.dispose();
     }//GEN-LAST:event_btnSalvaActionPerformed
 
@@ -138,7 +136,7 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblNascita;
     private javax.swing.JLabel lblNome;
     private javax.swing.JTextField txtCognome;
-    private javax.swing.JFormattedTextField txtNascita;
+    private com.toedter.calendar.JDateChooser txtNascita;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }
