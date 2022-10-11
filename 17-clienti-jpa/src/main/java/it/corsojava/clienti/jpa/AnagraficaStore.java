@@ -28,9 +28,9 @@ public class AnagraficaStore {
 
     /**
      * salva una anagrafica su database
-     * 
+     *
      * @param a
-     * @return 
+     * @return
      */
     public static Anagrafica save(Anagrafica a) {
         em.getTransaction().begin(); //inizia una transazione di modifiche
@@ -38,15 +38,30 @@ public class AnagraficaStore {
         em.getTransaction().commit();
         return result;
     }
-    
+
     /**
      * ritorna tutte le anagrafiche presenti nel database
-     * 
-     * @return 
+     *
+     * @return
      */
-    public static List<Anagrafica> all(){
-        return em.createQuery("select e from Anagrafica e",Anagrafica.class)
+    public static List<Anagrafica> all() {
+        return em.createQuery("select e from Anagrafica e", Anagrafica.class)
                 .getResultList();
     }
 
+    /**
+     * rimuove un cliente tramide il suo id
+     *
+     * @param id
+     */
+    public static void delete(Long id) {
+        em.getTransaction().begin();
+        Anagrafica todelete = em.find(Anagrafica.class, id);
+        em.remove(todelete);
+        em.getTransaction().commit();
+    }
+
+    public static Anagrafica find(Long id) {
+        return em.find(Anagrafica.class, id);
+    }
 }

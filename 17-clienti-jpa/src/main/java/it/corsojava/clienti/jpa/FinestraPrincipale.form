@@ -96,11 +96,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Modifica"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnModificaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnElimina">
           <Properties>
             <Property name="text" type="java.lang.String" value="Elimina"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

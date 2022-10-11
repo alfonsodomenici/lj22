@@ -25,4 +25,11 @@ public class DateFunctions {
         Instant toInstant = d.toInstant();
         return LocalDate.ofInstant(toInstant, ZoneId.systemDefault());
     }
+
+    public static Date toDate(LocalDate d) {
+        if (d == null) {
+            return null;
+        }
+        return Date.from(d.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
 }

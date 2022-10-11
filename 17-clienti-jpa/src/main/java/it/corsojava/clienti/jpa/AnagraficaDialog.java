@@ -4,22 +4,38 @@
  */
 package it.corsojava.clienti.jpa;
 
+import java.awt.Frame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author ospite
  */
-public class NuovoClienteDialog extends javax.swing.JDialog {
+public class AnagraficaDialog extends javax.swing.JDialog {
 
+    private Anagrafica anag;
+
+    public AnagraficaDialog(Frame owner, boolean modal) {
+        this(owner, modal,new Anagrafica());
+    }
+    
+    
+    
     /**
-     * Creates new form NuovoClienteDialog
+     * 
+     * @param parent
+     * @param modal
+     * @param anag
      */
-    public NuovoClienteDialog(java.awt.Frame parent, boolean modal) {
+    public AnagraficaDialog(java.awt.Frame parent, boolean modal, Anagrafica anag) {
         super(parent, modal);
         initComponents();
         txtNascita.setDateFormatString("dd/MM/yyyy");
         this.setModalityType(ModalityType.APPLICATION_MODAL);
+        this.anag = anag;
+        txtNome.setText(anag.getNome());
+        txtCognome.setText(anag.getCognome());
+        txtNascita.setDate(DateFunctions.toDate(anag.getdNascita()));
     }
 
     /**
@@ -40,7 +56,7 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
         txtNascita = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Nuovo Cliente");
+        setTitle("Anagrafica");
         setModal(true);
 
         lblNome.setText("Nome");
@@ -104,14 +120,14 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvaActionPerformed
-        
-        Anagrafica tosave = new Anagrafica(txtNome.getText(), txtCognome.getText());
-        
-        tosave.setdNascita(DateFunctions.toLocalDate(txtNascita.getDate()));
 
-        AnagraficaStore.save(tosave);
+        anag.setNome(txtNome.getText());
+        anag.setCognome(txtCognome.getText());
+        anag.setdNascita(DateFunctions.toLocalDate(txtNascita.getDate()));
 
-        JOptionPane.showMessageDialog(this, "Nuovo cliente salvato con successo!!");
+        AnagraficaStore.save(anag);
+
+        JOptionPane.showMessageDialog(this, "Anagrafica salvata con successo!!");
         
         this.setVisible(false);
         

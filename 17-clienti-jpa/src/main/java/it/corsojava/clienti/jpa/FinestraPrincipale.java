@@ -22,8 +22,7 @@ public class FinestraPrincipale extends javax.swing.JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setBounds(200, 200, 500, 400);
         tbAnagrafica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tbAnagrafica.getSelectionModel().addListSelectionListener(
-                (ListSelectionEvent e) -> abilitaBottoni(tbAnagrafica.getSelectedRow() != -1));
+        tbAnagrafica.getSelectionModel().addListSelectionListener(e -> abilitaBottoni(tbAnagrafica.getSelectedRow() != -1));
         loadData();
         abilitaBottoni(false);
     }
@@ -71,9 +70,19 @@ public class FinestraPrincipale extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         btnModifica.setText("Modifica");
+        btnModifica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnModifica);
 
         btnElimina.setText("Elimina");
+        btnElimina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnElimina);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
@@ -112,10 +121,26 @@ public class FinestraPrincipale extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuEsciActionPerformed
 
     private void mnuNuovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuovoClienteActionPerformed
-        NuovoClienteDialog f = new NuovoClienteDialog(this, true);
+        AnagraficaDialog f = new AnagraficaDialog(this, true);
         f.setVisible(true);
         loadData();
     }//GEN-LAST:event_mnuNuovoClienteActionPerformed
+
+    private void btnEliminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminaActionPerformed
+        int rowIndex = tbAnagrafica.getSelectedRow();
+        Long id = (Long) tbAnagrafica.getModel().getValueAt(rowIndex, 0);
+        AnagraficaStore.delete(id);
+        loadData();
+    }//GEN-LAST:event_btnEliminaActionPerformed
+
+    private void btnModificaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificaActionPerformed
+        int rowIndex = tbAnagrafica.getSelectedRow();
+        Long id = (Long) tbAnagrafica.getModel().getValueAt(rowIndex, 0);
+        Anagrafica found = AnagraficaStore.find(id);
+        AnagraficaDialog f = new AnagraficaDialog(this, true,found);
+        f.setVisible(true);
+        loadData();
+    }//GEN-LAST:event_btnModificaActionPerformed
 
     /**
      * @param args the command line arguments
