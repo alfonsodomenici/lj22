@@ -4,19 +4,7 @@
  */
 package it.corsojava.clienti.jpa;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
-import javax.swing.text.DateFormatter;
 
 /**
  *
@@ -31,6 +19,7 @@ public class NuovoClienteDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         txtNascita.setDateFormatString("dd/MM/yyyy");
+        this.setModalityType(ModalityType.APPLICATION_MODAL);
     }
 
     /**

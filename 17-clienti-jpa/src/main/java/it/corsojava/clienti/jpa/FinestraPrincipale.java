@@ -4,6 +4,10 @@
  */
 package it.corsojava.clienti.jpa;
 
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 /**
  *
  * @author ospite
@@ -17,7 +21,16 @@ public class FinestraPrincipale extends javax.swing.JFrame {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setBounds(200, 200, 500, 400);
+        tbAnagrafica.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tbAnagrafica.getSelectionModel().addListSelectionListener(
+                (ListSelectionEvent e) -> abilitaBottoni(tbAnagrafica.getSelectedRow() != -1));
         loadData();
+        abilitaBottoni(false);
+    }
+
+    private void abilitaBottoni(boolean enable) {
+        btnModifica.setEnabled(enable);
+        btnElimina.setEnabled(enable);
     }
 
     /**
@@ -31,6 +44,9 @@ public class FinestraPrincipale extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbAnagrafica = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btnModifica = new javax.swing.JButton();
+        btnElimina = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuFile = new javax.swing.JMenu();
         mnuEsci = new javax.swing.JMenuItem();
@@ -53,6 +69,14 @@ public class FinestraPrincipale extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbAnagrafica);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        btnModifica.setText("Modifica");
+        jPanel1.add(btnModifica);
+
+        btnElimina.setText("Elimina");
+        jPanel1.add(btnElimina);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
         mnuFile.setText("File");
 
@@ -90,6 +114,7 @@ public class FinestraPrincipale extends javax.swing.JFrame {
     private void mnuNuovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuovoClienteActionPerformed
         NuovoClienteDialog f = new NuovoClienteDialog(this, true);
         f.setVisible(true);
+        loadData();
     }//GEN-LAST:event_mnuNuovoClienteActionPerformed
 
     /**
@@ -128,7 +153,10 @@ public class FinestraPrincipale extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnElimina;
+    private javax.swing.JButton btnModifica;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu mnuClienti;
     private javax.swing.JMenuItem mnuEsci;
