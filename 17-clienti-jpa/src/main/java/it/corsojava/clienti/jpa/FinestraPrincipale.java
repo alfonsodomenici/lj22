@@ -122,6 +122,7 @@ public class FinestraPrincipale extends javax.swing.JFrame {
 
     private void mnuNuovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNuovoClienteActionPerformed
         AnagraficaDialog f = new AnagraficaDialog(this, true);
+        f.setLocationRelativeTo(this);
         f.setVisible(true);
         loadData();
     }//GEN-LAST:event_mnuNuovoClienteActionPerformed
